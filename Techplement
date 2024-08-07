@@ -1,0 +1,255 @@
+MONOLITHIC:
+First launch an ec2 instance with UBUNTU AMI.
+Then coonect with SSH client.
+Then update the terminal using below command.
+sudo apt update(UPDATE the terminal).
+we have to install apache2 using below command.
+sudo apt install apache2(install apache2).
+Then install th packages of apache2 suing below command.
+sudo apt install php libapache2-mod-php php-mysql
+Install mysql 
+sudo apt install mysql-server
+Then login into mysql using root user
+sudo mysql -u root
+Allocate the password to mysql.
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY'Anusha@10';
+Create user.
+CREATE USER 'wp_user'@localhost IDENTIFIED BY 'Anusha@10';
+Create database
+CREATE DATABASE wp;
+Give the credentials on database for user.
+GRANT ALL PRIVILEGES ON wp.* TO 'wp_user'@localhost;
+
+exit;
+
+cd /tmp
+command for Installation of wordpress.
+wget https://wordpress.org/latest.zip
+install unzip.
+sudo apt install unzip
+Extract the file.
+unzip latest.zip
+sudo mv wordpress/ /var/www/html 
+cd /var/www/html/ 
+ls
+cd wordpress 
+nano wp-config.php
+<?php
+/**
+* The base configuration for WordPress
+*
+* The `wp-config.php` creation script uses this file during the
+* installation. You can copy this file to "wp-config.php" and fill in
+* the values.
+*
+* This file contains the following configurations:
+*
+* * MySQL settings
+* * Secret keys
+* * Database table prefix
+* * ABSPATH
+*
+* @link https://wordpress.org/support/article/editing-wp-config-php/
+*
+* @package WordPress
+*/
+ 
+// ** MySQL settings ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'database_name_here');
+ 
+/** MySQL database username */
+define('DB_USER', 'username_here');
+ 
+/** MySQL database password */
+define('DB_PASSWORD', 'password_here');
+ 
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+ 
+/** Database charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8');
+ 
+/** The database collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+ 
+/**#@+
+* Authentication unique keys and salts.
+*
+* Change these to different unique phrases!
+* You can generate these using the WordPress.org secret-key service
+* {@link https://api.wordpress.org/secret-key/1.1/salt/}
+* You can change these at any point in time to invalidate all existing cookies.
+* This will force all users to have to log in again.
+*
+* @since 2.6.0
+*/
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
+ 
+/**#@-*/
+ 
+/**
+* WordPress database table prefix.
+*
+* You can have multiple installations in one database if you give each
+* a unique prefix. Only numbers, letters, and underscores please!
+*/
+$table_prefix = 'wp_';
+ 
+/**
+* For developers: WordPress debugging mode.
+*
+* Change this to true to enable the display of notices during development.
+* It is strongly recommended that plugin and theme developers use WP_DEBUG
+* in their development environments.
+*
+* For information on other constants that can be used for debugging,
+* visit the documentation.
+*
+* @link https://wordpress.org/support/article/debugging-in-wordpress/
+*/
+define('WP_DEBUG', false);
+ 
+/* That's all, stop editing! Happy blogging. */
+ 
+/** Absolute path to the WordPress drectory. */
+if ( ! defined( 'ABSPATH' ) ) {
+define( 'ABSPATH', __DIR__ . '/' );
+}
+ 
+/** Sets up WordPress vars and included files. */
+require_once ABSPATH . 'wp-settings.php';
+
+
+
+
+MICROSERVICES:
+first launch instance ec2 with ubuntu AMI
+instance1 with MySQL
+ADD inbound rules with mysql/auoura.
+sudo apt update(update system)
+sudo apt install mysql-server(install MySQL)
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+#bind-address = 127.0.0.1
+bind-address = 0.0.0.0
+sudo systemctl restart MySQL(restart MySQL)
+sudo mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by '';
+CREATE USER 'wp_user'@localhost IDENTIFIED BY '';
+CREATE DATABASE wp;
+GRANT ALL PRIVILEGES ON wp.* TO 'wp_user'@localhost;
+exit;
+Launch ec2 instance for wordpress with ubuntu AMI
+connect instance 2ndinstance and add outbound rule MySQL/auoura.
+ADD outbound rules with mysql/Auoura.
+cd /tmp 
+wget https://wordpress.org/latest.zip
+sudo apt install unzip
+unzip latest.zip
+sudo mv wordpress/ /var/www/html 
+cd /var/www/html/ 
+ls
+cd wordpress 
+nano wp-config.php<?php
+/**
+* The base configuration for WordPress
+*
+* The `wp-config.php` creation script uses this file during the
+* installation. You can copy this file to "wp-config.php" and fill in
+* the values.
+*
+* This file contains the following configurations:
+*
+* * MySQL settings
+* * Secret keys
+* * Database table prefix
+* * ABSPATH
+*
+* @link https://wordpress.org/support/article/editing-wp-config-php/
+*
+* @package WordPress
+*/
+ 
+// ** MySQL settings ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'database_name_here');
+ 
+/** MySQL database username */
+define('DB_USER', 'username_here');
+ 
+/** MySQL database password */
+define('DB_PASSWORD', 'password_here');
+ 
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+ 
+/** Database charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8');
+ 
+/** The database collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+ 
+/**#@+
+* Authentication unique keys and salts.
+*
+* Change these to different unique phrases!
+* You can generate these using the WordPress.org secret-key service
+* {@link https://api.wordpress.org/secret-key/1.1/salt/}
+* You can change these at any point in time to invalidate all existing cookies.
+* This will force all users to have to log in again.
+*
+* @since 2.6.0
+*/
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
+ 
+/**#@-*/
+ 
+/**
+* WordPress database table prefix.
+*
+* You can have multiple installations in one database if you give each
+* a unique prefix. Only numbers, letters, and underscores please!
+*/
+$table_prefix = 'wp_';
+ 
+/**
+* For developers: WordPress debugging mode.
+*
+* Change this to true to enable the display of notices during development.
+* It is strongly recommended that plugin and theme developers use WP_DEBUG
+* in their development environments.
+*
+* For information on other constants that can be used for debugging,
+* visit the documentation.
+*
+* @link https://wordpress.org/support/article/debugging-in-wordpress/
+*/
+define('WP_DEBUG', false);
+ 
+/* That's all, stop editing! Happy blogging. */
+ 
+/** Absolute path to the WordPress directory. */
+if ( ! defined( 'ABSPATH' ) ) {
+define( 'ABSPATH', __DIR__ . '/' );
+}
+ 
+/** Sets up WordPress vars and included files. */
+require_once ABSPATH . 'wp-settings.php';
+
+
+
+
